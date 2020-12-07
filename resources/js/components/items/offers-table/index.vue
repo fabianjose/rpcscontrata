@@ -17,8 +17,8 @@
             <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill  p-1 text-wrap "  > <p class="text-tabla-detalles" >  Descripcion </p> </div>
           </div>
           
-          <div class="col-xl-2 col-lg-3 col-md-4 px-1">
-            <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">   <p class="text-tabla-detalles" >   Precio</p> </div>
+          <div class="col-xl-2 col-lg-3 col-md-4 px-1" v-on:click="changeOrderPrice" style="cursor: pointer;">
+            <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">  <p class="text-tabla-detalles" >Precio <i class="fa fa-angle-down"></i></p> </div>
           </div>
 
             <div class="col-xl-2 col-lg-3 col-md-4 px-1">
@@ -192,6 +192,9 @@
 </template>
 
 <script>
+
+import FilterOffers from '../../forms/filterOffers/index.vue'
+
 export default {
     props:["items", "fields", "lastpage", "currentpage"],
 
@@ -204,7 +207,6 @@ export default {
     mounted(){
       console.log("current page ", this.currentpage)
     },
-
     methods:{
       showPrice(price){
           return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -219,8 +221,12 @@ export default {
 
       emitView(index){
         this.$emit("viewItem",index);
-      }
-    },
+      },
+      changeOrderPrice: function (event) {
+        FilterOffers.methods.getOrder();
+/*        this.$emit("FilterOffers",getOrder);*/
+      },
+  },
 
     computed:{
       compFields:{

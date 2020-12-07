@@ -2,12 +2,22 @@
   <div class="card card-primary filter-card mb-5 p-3" style="box-shadow: none;">
     <div class="card-body d-flex flex-column align-items-center   pt-4" style="box-shadow: none;">
       <div class="d-flex flex-column justify-content-between" style="width: 100%;">
-      
+      <div class="col-xl-2 col-lg-3 col-md-4 px-1" v-on:click="changeOrderPrice" style="cursor: pointer;">
+            <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">  <p class="text-tabla-detalles" >Precio <i class="fa fa-angle-down"></i></p> </div>
+          </div>
       <h4  class="filter-card-title font-weight-bold text-center" style="align-self: center;" >
         <i class="fas fa-filter" style="color:#606060;display: inline-block;">    </i>
         Filtro de búsqueda</h4>
      </div>
          <br>
+
+        <!--  <div class="form-group my-2 col-12 " v-if="orderBy" style="display: block;">
+            <label for="sortBy" class="filter-card-label">Orden:</label>
+            <select class="custom-select rounded-pill" id="sortBy" v-model="orderBySort">
+              <option :value="'asc'" selected >Ascendente</option>
+              <option :value="'desc'" >Descendente</option>
+            </select>
+          </div> -->
       <div class="form-horizontal my-2 col-12 flex-wrap" >
         <div  type="button" data-toggle="collapse" data-target="#collapseProveedor" aria-expanded="false" aria-controls="collapseProveedor" style="display:flex;justify-content: space-between;">
           <h4 class="btn-block" style="color:#616161; font-family:'Work Sans'; font-weight: 500;">  Proveedor   </h4> <span><i class="fas fa-angle-down" style="margin-left: auto; font-size: 33px;   color: #afaeb4;"></i></span>
@@ -104,10 +114,15 @@
       </div>
     </div>
   </div>
+
 </div>
+
 </template>
 
 <script>
+
+// import OffersTable from '../../items/offers-table/index.vue'
+
 export default {
 
   props:["fields","providers","max_price", "min_price","technologies","speeds","max_speed", "min_speed"],
@@ -127,16 +142,40 @@ export default {
       formatter2: v => `${('' + (v)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} Mbps`
     }
   },
+ /* components: {
+   OffersTable
+ },*/
 
+  /*mounted() {
+      console.log("offerstable.orden");
+      console.log(OffersTable.orden);
+    },*/
+    /*created(){
+    console.log('Created');
+  },*/
+  mounted(){
+    // console.log('Mounted');
+    // this.$emit("customFiltering", "&sortBy=tariff&sortByDesc=true&technologies=0&speeds=1,500&providers=3");
+  },
   methods:{
     emitFilter(){
       //console.log(max_price);
      // return;
       let searchKey="";
+
       if(this.orderBy){
+      // if(this.orderBySort){
+        // alert(this.orderBySort);
         searchKey+="&sortBy="+this.orderBy;
-        if(this.orderBySort=="desc") searchKey+="&sortByDesc=true";
+        // searchKey+="&sortBy=tariff";
+        if(this.orderBySort=="desc"){
+          searchKey+="&sortByDesc=1";
+        }
+        else searchKey+="&sortByDesc=0";
       }
+
+
+      // alert(this.orderBySort);
     /*  if(this.value[0]&&this.value[1]!=""){
         if(!isNaN(this.value[0])) searchKey+="&from="+parseFloat(this.value[0]);
         if(!isNaN(this.value[1])) searchKey+="&to="+parseFloat(this.value[1]);
@@ -150,27 +189,72 @@ export default {
         else return toastr.error("El campo 'Hasta' es de valor numérico")
         
       }*/
-      if(this.checked_technologies.lenght != 0){
+      if(this.checked_technologies && this.checked_technologies.lenght != 0){
         searchKey+="&technologies="+this.checked_technologies;
+      }
+      else{
+        searchKey+="&technologies=";
       }
       /*if(this.checked_speeds.lenght != 0){
         searchKey+="&speeds="+this.checked_speeds;
       }*/
 
-      if(this.value.lenght != 0){
+      if(this.value && this.value.lenght != 0){
         searchKey+="&speeds="+this.value;
       }
-
-      if(this.checked_technologies.lenght != 0){
-        searchKey+="&providers="+this.checked_providers;
+      else{
+        searchKey+="&speeds=1,500";
       }
 
+      if(this.checked_technologies && this.checked_technologies.lenght != 0){
+        searchKey+="&providers="+this.checked_providers;
+      }
+      else{
+        searchKey+="&providers=";
+      }
       // console.log(this.value);
       // console.log(this.min_speed);
       // console.log(this.max_speed);
+
+
+      console.log("searchKey");
       console.log(searchKey);
       this.$emit("customFiltering", searchKey);
+      // this.$emit("customFiltering", "&sortBy=tariff&sortByDesc=true&technologies=0&speeds=1,500&providers=3");
 
+    },
+    
+    getOrder: function(e){
+      // let searchKey="";
+// alert("asdasd");
+console.log(this);
+      if(this.orderBySort == "desc")
+            this.orderBySort = "asc";
+        else this.orderBySort = "desc";
+
+        this.orderBy = "tariff";
+        // alert(this.orderBySort);
+      /*if(this.orderBy){
+        searchKey+="&sortBy="+this.orderBy;
+        if(this.orderBySort=="desc") searchKey+="&sortByDesc=true";
+      }
+*/
+      this.emitFilter();
+      // this.$emit("customFiltering", "&sortBy=tariff&sortByDesc=true&technologies=0&speeds=1,500&providers=3");
+    },
+    changeOrderPrice: function(){
+     if(this.orderBySort == "desc")
+            this.orderBySort = "asc";
+        else this.orderBySort = "desc";
+
+        this.orderBy = "tariff";
+        // alert(this.orderBySort);
+      /*if(this.orderBy){
+        searchKey+="&sortBy="+this.orderBy;
+        if(this.orderBySort=="desc") searchKey+="&sortByDesc=true";
+      }
+*/
+      this.emitFilter();
     },
   },
 

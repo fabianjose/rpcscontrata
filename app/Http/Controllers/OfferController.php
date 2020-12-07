@@ -460,10 +460,18 @@ class OfferController extends Controller{
     ->get();
 
     if($request->input("sortBy")){
+      $ordenar = $request->input("sortByDesc");
       $sorting="sortBy";
       $sortKey=$request->input("sortBy");
       if($sortKey>2) return response()->json("No existe ese campo",400);
-      if($request->input("sortByDesc")) $sorting="sortByDesc";
+      if($ordenar == 1) {
+        // return "no deberia";
+        $sorting="sortByDesc"; 
+      }
+      else {
+        $sorting="sortBy";
+        // return $ordenar;
+      } 
       $offers=collect($offers);
       $offers=$offers->{$sorting}(function ($offer, $key) use($sortKey) {
         if(is_numeric($sortKey))
