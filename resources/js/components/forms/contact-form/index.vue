@@ -1,54 +1,45 @@
 <template>
-  
+    <div :class="'bg-main-blue p-3 form-consulting-field '+getFullRound()">
+        <div class="form-consulting-header">
+            <span class="form-consulting-title py-3 text-wrap">Consulta sin compromiso</span>
+        </div>
+        <div class="form-group col-12 my-2">
+            <label class="text-white">Nombre y Apellido</label>
+            <div class="form-group has-search d-flex align-items-center">
+                <span class="fas fa-user form-control-feedback text-white"></span>
+                <input v-model="fullName" class="form-control form-consulting-input rounded-pill rounded-input" type="text">
+            </div>
+        </div>
+        <div class="form-group col-12 my-2">
+            <label class="text-white">Correo electrónico</label>
+            <div class="form-group has-search d-flex align-items-center">
+                <span class="fas fa-mail-bulk form-control-feedback text-white"></span>
+                <input v-model="email" class="form-control form-consulting-input rounded-pill rounded-input" type="text">
+            </div>
+        </div>
+        <div class="form-group col-12 my-2">
+            <label class="text-white">Nro de Teléfono</label>
+            <div class="form-group has-search d-flex align-items-center">
+                <span class="fas fa-phone form-control-feedback text-white"></span>
+                <input v-model="phone" class="form-control form-consulting-input rounded-pill rounded-input" type="text">
+            </div>
+        </div>
+        <div class="col-12 my-2 d-flex justify-content-center align-items-center">
+            <!--
+                <vue-recaptcha @error="onCaptchaError" @expired="onCaptchaExpired" @verify="verifyCaptcha" class="col-12 v-captcha" :sitekey="reCaptchaKey" :loadRecaptchaScript="true" ></vue-recaptcha>
+            -->
+        </div>
+        <div class="col-12 my-2 p-3 mx-auto" >
+            <button :disabled="disableButton" @click="sendMail" class="btn btn-block btn-dark-blue rounded-pill">
+                CONSULTAR
+            </button>
+        </div>
+    </div>
 
-
-
-<!-- Load Facebook SDK for JavaScript -->
-      <div id="fb-root"></div>
     
-
-      <!-- Your Chat Plugin code -->
-      <div class="fb-customerchat"
-        attribution=setup_tool
-        page_id="173001153127662"
-  logged_in_greeting="Bienvenido, ¿Cuéntanos en que podemos ayudarte?"
-  logged_out_greeting="Bienvenido, ¿Cuéntanos en que podemos ayudarte?">
-      </div>
-
-
-
-
 </template>
 
 <script>
-
-
-        window.fbAsyncInit = function() {
-          FB.init({
-            xfbml            : true,
-            version          : 'v9.0'
-          });
-        };
-
-        (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-
-
-
-
-
-
-
-
-
-
-
-
 export default {
     props:["offer"],
 

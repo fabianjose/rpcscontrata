@@ -290,6 +290,18 @@
         </div>
  
 
+
+ 
+        <div id="fb-root"></div>
+      <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="173001153127662"
+  logged_in_greeting="Bienvenido, Cuentanos en que podemos ayudarte?"
+  logged_out_greeting="Bienvenido, Cuentanos en que podemos ayudarte?">
+      </div>
+
+
         <div class="whatsapp">
             <a target="_blank"href="https://api.whatsapp.com/send?phone=573212120281&text=hola, me gustaria saber de los planes"> <img src="{{asset('/images/whatsapp.png')}}" width="67" height="67"> </a>
         </div>
@@ -302,11 +314,12 @@
 
 
 
+
   
   
   
     <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
+   
       <script >
         window.fbAsyncInit = function() {
           FB.init({
@@ -322,36 +335,7 @@
         js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-     
-     
-     
-     
-     
-     
       </script>
-
-
-      <!-- Your Chat Plugin code -->
-      <div class="fb-customerchat"
-        attribution=setup_tool
-        page_id="173001153127662"
-  logged_in_greeting="Bienvenido, Cuentanos en que podemos ayudarte?"
-  logged_out_greeting="Bienvenido, Cuentanos en que podemos ayudarte?">
-      </div>
-
 
       <script>
       
