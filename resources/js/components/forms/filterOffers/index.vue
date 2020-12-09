@@ -2,9 +2,9 @@
   <div class="card card-primary filter-card mb-5 p-3" style="box-shadow: none;">
     <div class="card-body d-flex flex-column align-items-center   pt-4" style="box-shadow: none;">
       <div class="d-flex flex-column justify-content-between" style="width: 100%;">
-      <div class="col-xl-2 col-lg-3 col-md-4 px-1" v-on:click="changeOrderPrice" style="cursor: pointer;">
+      <!-- <div class="col-xl-2 col-lg-3 col-md-4 px-1" v-on:click="changeOrderPrice" style="cursor: pointer;">
             <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">  <p class="text-tabla-detalles" >Precio <i class="fa fa-angle-down"></i></p> </div>
-          </div>
+          </div> -->
       <h4  class="filter-card-title font-weight-bold text-center" style="align-self: center;" >
         <i class="fas fa-filter" style="color:#606060;display: inline-block;">    </i>
         Filtro de búsqueda</h4>
@@ -121,7 +121,8 @@
 
 <script>
 
-// import OffersTable from '../../items/offers-table/index.vue'
+
+import { EventBus } from '../../../EventBus.js'; 
 
 export default {
 
@@ -142,20 +143,11 @@ export default {
       formatter2: v => `${('' + (v)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} Mbps`
     }
   },
- /* components: {
-   OffersTable
- },*/
 
-  /*mounted() {
-      console.log("offerstable.orden");
-      console.log(OffersTable.orden);
-    },*/
-    /*created(){
-    console.log('Created');
-  },*/
   mounted(){
-    // console.log('Mounted');
-    // this.$emit("customFiltering", "&sortBy=tariff&sortByDesc=true&technologies=0&speeds=1,500&providers=3");
+    EventBus.$on('getOrder',function Escucha(value) {
+      this.getOrder();
+    }.bind(this)); 
   },
   methods:{
     emitFilter(){
@@ -212,50 +204,32 @@ export default {
       else{
         searchKey+="&providers=";
       }
-      // console.log(this.value);
-      // console.log(this.min_speed);
-      // console.log(this.max_speed);
 
-
-      console.log("searchKey");
       console.log(searchKey);
       this.$emit("customFiltering", searchKey);
-      // this.$emit("customFiltering", "&sortBy=tariff&sortByDesc=true&technologies=0&speeds=1,500&providers=3");
+
 
     },
     
-    getOrder: function(e){
-      // let searchKey="";
-// alert("asdasd");
-console.log(this);
-      if(this.orderBySort == "desc")
-            this.orderBySort = "asc";
-        else this.orderBySort = "desc";
+    getOrder(){
 
-        this.orderBy = "tariff";
-        // alert(this.orderBySort);
-      /*if(this.orderBy){
-        searchKey+="&sortBy="+this.orderBy;
-        if(this.orderBySort=="desc") searchKey+="&sortByDesc=true";
-      }
-*/
+      if(this.orderBySort == "desc")
+          this.orderBySort = "asc";
+      else this.orderBySort = "desc";
+
+      this.orderBy = "tariff";
       this.emitFilter();
-      // this.$emit("customFiltering", "&sortBy=tariff&sortByDesc=true&technologies=0&speeds=1,500&providers=3");
+
     },
-    changeOrderPrice: function(){
+    /*changeOrderPrice: function(){
      if(this.orderBySort == "desc")
             this.orderBySort = "asc";
         else this.orderBySort = "desc";
 
         this.orderBy = "tariff";
-        // alert(this.orderBySort);
-      /*if(this.orderBy){
-        searchKey+="&sortBy="+this.orderBy;
-        if(this.orderBySort=="desc") searchKey+="&sortByDesc=true";
-      }
-*/
+
       this.emitFilter();
-    },
+    },*/
   },
 
   computed:{

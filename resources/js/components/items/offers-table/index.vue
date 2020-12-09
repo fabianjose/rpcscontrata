@@ -2,7 +2,7 @@
 <div class="col-12 col-lg-8 col-xl-9">
       <div class="d-flex flex-column w-100">
 
-      
+    
 
         <div class="d-flex flex-row w-100 justify-content-around mb-2 mt-3 bloque-proveedor-precios" >
           <div class="col-xl-2 col-lg-3 col-md-4 px-1">
@@ -17,8 +17,14 @@
             <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill  p-1 text-wrap "  > <p class="text-tabla-detalles" >  Descripcion </p> </div>
           </div>
           
-          <div class="col-xl-2 col-lg-3 col-md-4 px-1" v-on:click="changeOrderPrice" style="cursor: pointer;">
+          <div  v-if="seen == 1" class="col-xl-2 col-lg-3 col-md-4 px-1" @click="changeOrderPrice" style="cursor: pointer;">
             <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">  <p class="text-tabla-detalles" >Precio <i class="fa fa-angle-down"></i></p> </div>
+          </div>
+          <div  v-if="seen == 0" class="col-xl-2 col-lg-3 col-md-4 px-1" @click="changeOrderPrice" style="cursor: pointer;">
+            <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">  <p class="text-tabla-detalles" >Precio <i class="fa fa-angle-up"></i></p> </div>
+          </div>
+          <div  v-if="seen == 2" class="col-xl-2 col-lg-3 col-md-4 px-1" @click="changeOrderPrice" style="cursor: pointer;">
+            <div class="text-center p-2 offer-table-label w-100 text-white mx-auto bg-dark-blue rounded-pill p-1 text-wrap ">  <p class="text-tabla-detalles" >Precio </p> </div>
           </div>
 
             <div class="col-xl-2 col-lg-3 col-md-4 px-1">
@@ -186,27 +192,28 @@
             
             <i class="fas fa-arrow-right"></i></button>
         </div>
-
+     
       </div>
     </div>
 </template>
 
 <script>
 
-import FilterOffers from '../../forms/filterOffers/index.vue'
+
+
+import { EventBus } from '../../../EventBus.js'; 
+
 
 export default {
-    props:["items", "fields", "lastpage", "currentpage"],
+    props:["items", "fields", "lastpage", "currentpage","query"],
 
     data(){
         return{
             baseUrl:baseUrl,
+            seen: 2
         }
     },
 
-    mounted(){
-      console.log("current page ", this.currentpage)
-    },
     methods:{
       showPrice(price){
           return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -223,8 +230,10 @@ export default {
         this.$emit("viewItem",index);
       },
       changeOrderPrice: function (event) {
-        FilterOffers.methods.getOrder();
-/*        this.$emit("FilterOffers",getOrder);*/
+        if(this.seen == 1 || this.seen == 2) this.seen = 0;
+        else this.seen = 1;
+
+        EventBus.$emit('getOrder');
       },
   },
 
