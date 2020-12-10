@@ -21,7 +21,7 @@
 <!-- Load Facebook SDK for JavaScript -->
 
 
-    <div class="content">
+    <div class="content" >
         <div  class="grid-header1 w-100 py-2 px-4" style="display:in-line" >
             <div class="d-flex justify-content-end" style="color: #606060;">
               <!--  <a href=""> <i class="fab fa-facebook-f i-c-main mx-2 text-white text-lg"></i>  </a> -->
@@ -74,7 +74,7 @@
 
 
 
-        <nav class="  main-header navbar-light navbar navbar-expand-md mx-auto py-3 px-1 align-items-center header-posicion " style="background-color:white; height: 80px;">
+        <nav id="nav-grande" class="  main-header navbar-light navbar navbar-expand-md mx-auto py-3 px-1 align-items-center header-posicion fixed-top" style="background-color:white; height: 80px;">
             <ul  class="navbar-nav ml-3 ">
                 <a class="nav-item  " href="/"  style="margin-top: -22px;">
                     <img class="ic-logo" src="{{ asset('images/LOGO5COLORH258.png') }}"  alt="">
@@ -92,36 +92,36 @@
 
                 <li class="nav-item">
                         <a class="nav-link nav-item-border" href="#planes_destacados">
-                            <h6 class="ic-main font-weight-bold">
+                            <h6 class="ic-main font-weight-bold item-menu">
                             Planes Internet
                             </h6>
                         </a>
                     </li>
-                    <li class="nav-item" >
-                        <a class="nav-link nav-item-border {{Route::current()->uri=='/'?'active':''}}" href="https://contratainternet.co/etb/">
-                            <h6 class="ic-main font-weight-bold">
+                    <li class="nav-item item-menu" >
+                        <a class="nav-link nav-item-border " href="https://contratainternet.co/etb/">
+                            <h6 class="ic-main font-weight-bold item-menu">
                                 Oferta especial del mes
                             </h6>
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item item-menu">
                         <a class="nav-link nav-item-border" href="https://contratainternet1.speedtestcustom.com/">
-                            <h6 class="ic-main font-weight-bold">
+                            <h6 class="ic-main font-weight-bold item-menu">
                                 Prueba de Velocidad
                             </h6>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-item-border {{strpos(Route::current()->uri,'nosotros')>-1?'active':''}}" href="/nosotros">
-                            <h6 class="ic-main font-weight-bold">
+                    <li class="nav-item item-menu" >
+                        <a class="nav-link nav-item-border " href="/nosotros">
+                            <h6 class="ic-main font-weight-bold item-menu">
                                 Nosotros
                             </h6>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link nav-item-border {{strpos(Route::current()->uri,'blog')>-1?'active':''}}" href="/blog">
-                            <h6 class="ic-main font-weight-bold">
+                            <h6 class="ic-main font-weight-bold  item-menu" >
                                 Blog
                             </h6>
                         </a>
@@ -335,10 +335,32 @@
         js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+
+
+
+/********************************************/
+window.onscroll = function() {
+  var y = window.scrollY;
+  console.log(y);
+  if(y > 70){
+    
+  
+$("#nav-grande").addClass("fixed-top"); 
+$("#nav-grande").css({'height':'105px'});
+    
+
+  }   else {     $("#nav-grande").removeClass("fixed-top");
+    $("#nav-grande").css({'height':'66px'});
+
+   
+               
+};}
+
+
+
       </script>
 
-      <script>
+   
       
-
 
 @stop

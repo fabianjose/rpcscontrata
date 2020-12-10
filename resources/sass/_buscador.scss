@@ -4,7 +4,7 @@
 
 
 .fila-de-botones-sobre-buscador{ 
-    margin-top: -50px;
+    margin-top: 30px;
     padding-left: 177px;
     padding-right: 208px;
 }
@@ -12,10 +12,16 @@
 
 
 .btn-1{
-    background-color: #3d3c3c63;
+   background-color: #3d3c3c63;
     color: white;
-    font-size: 11px;
-}
+    font-size: 13px;
+    font-weight: bold;
+  
+
+    
+}  .btn-1:hover {
+        color: white;
+      }
 
 .fila-iconos-buscador{
     padding-left: 51px;
@@ -32,7 +38,7 @@
     height: 120px;
 }
 
-
+.lupa:hover{ cursor: pointer; } 
 .borde-caja-buscador{
     padding-left: 137px;
     padding-right: 182px;
