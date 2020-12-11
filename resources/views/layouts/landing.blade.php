@@ -93,7 +93,7 @@
                 <li class="nav-item">
                         <a class="nav-link nav-item-border" href="#planes_destacados">
                             <h6 class="ic-main font-weight-bold item-menu">
-                            Planes Internet
+                            Planes Internet2
                             </h6>
                         </a>
                     </li>
